@@ -5,12 +5,16 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: example
+    ports:
+      - 5432:5432
     networks:
       - backend
   adminer:
     image: adminer
     restart: always
     ports:
-      - 8080:8080
+      - 80:8080
+    networks:
+      - backend
 networks:
   backend:

@@ -1,6 +1,7 @@
-package com.rtjfarrimond.Routes
+package com.rtjfarrimond
 
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
+import com.rtjfarrimond.domain.Greeting
 
 trait JsonSupport extends SprayJsonSupport {
   import spray.json.DefaultJsonProtocol._

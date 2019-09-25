@@ -1,8 +1,9 @@
-package com.rtjfarrimond.Routes
+package com.rtjfarrimond
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
+import com.rtjfarrimond.routes.Routes
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, ExecutionContext, Future}

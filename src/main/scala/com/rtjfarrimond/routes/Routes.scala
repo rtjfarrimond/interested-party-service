@@ -1,7 +1,9 @@
-package com.rtjfarrimond.Routes
+package com.rtjfarrimond.routes
 
 import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.server.Directives._
+import com.rtjfarrimond.JsonSupport
+import com.rtjfarrimond.domain.Greeting
 
 import scala.concurrent.Future
 
