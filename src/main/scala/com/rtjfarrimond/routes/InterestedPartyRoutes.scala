@@ -10,6 +10,7 @@ import com.rtjfarrimond.database.tables.InterestedPartyTable
 import com.rtjfarrimond.domain.request.InterestedPartyCreateRequest
 import com.rtjfarrimond.domain.response.InterestedPartyCreateResponse
 import com.rtjfarrimond.serialization.JsonSupport
+import com.typesafe.scalalogging.Logger
 import slick.dbio.DBIO
 import slick.jdbc.H2Profile.api._
 
@@ -25,6 +26,8 @@ trait InterestedPartyRoutes extends JsonSupport {
     concat(createInterestedParty)
   }
 
+  val logger = Logger("InterestedPartyRoutes")
+
   private def createInterestedParty: Route = post {
     val uuid: UUID = UUID.randomUUID
     entity(as[InterestedPartyCreateRequest]) { ip =>
@@ -37,12 +40,11 @@ trait InterestedPartyRoutes extends JsonSupport {
         s"Created interested party",
         s"Failed to create interested party")
           .transform {
-            case Success(ap) => Try(InterestedPartyCreateResponse(uuid, ip.name, ip.email))
-            case Failure(exception) => throw exception
+            case Success(_) => Try(InterestedPartyCreateResponse(uuid, ip.name, ip.email))
+            case Failure(e) => throw e
           }
       onSuccess(ipCreated) { created =>
-        // TODO: Implement proper logging
-        println(s"Interested party created: $created")
+        logger.info(s"Interested party created: ${ipCreated.value.get.get.toString}")
         complete((StatusCodes.Created, created))
       }
     }

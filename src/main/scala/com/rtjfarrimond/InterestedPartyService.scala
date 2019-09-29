@@ -25,21 +25,15 @@ object InterestedPartyService extends App with InterestedPartyRoutes {
   private val databaseName: String = "postgres"
   private val port: Int = 5432
 
-  override val database: DatabaseDelegate = PostgresDelegate(
-  user,
-  pass,
-  server,
-  databaseName,
-  port)
+  override val database: DatabaseDelegate = PostgresDelegate(user, pass, server, databaseName, port)
 
   // TODO: Move server and port to config
   val serverBinding: Future[Http.ServerBinding] = Http().bindAndHandle(routes, "localhost", 8080)
   serverBinding.onComplete {
     case Success(bound) =>
-      println(s"Server online at http://${bound.localAddress.getHostString}:${bound.localAddress.getPort}/")
+      logger.info(s"Server online at http://${bound.localAddress.getHostString}:${bound.localAddress.getPort}/")
     case Failure(e) =>
-      Console.err.println(s"Server could not start!")
-      e.printStackTrace()
+      logger.error("Server could not start!", e)
       actorSystem.terminate()
   }
 
