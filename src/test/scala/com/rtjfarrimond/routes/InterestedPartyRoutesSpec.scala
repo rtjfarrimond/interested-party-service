@@ -44,11 +44,11 @@ class InterestedPartyRoutesSpec extends WordSpec with Matchers with MockFactory 
       request ~> interestedPartyRoutes ~> check {
         status should === (StatusCodes.Created)
         contentType should === (ContentTypes.`application/json`)
-        
+
         val responseObject: InterestedPartyCreateResponse = entityAs[InterestedPartyCreateResponse]
         responseObject.email should === ("robert.farrimond@ktech.com")
         responseObject.name should === ("Robert Farrimond")
-        responseObject.uuid should not be (null)
+        responseObject.uuid should not be (null) // Will make random uuid, so do not know value in advance
       }
     }
   }
