@@ -12,7 +12,7 @@ import com.rtjfarrimond.domain.response.InterestedPartyCreateResponse
 import com.rtjfarrimond.serialization.JsonSupport
 import com.typesafe.scalalogging.Logger
 import slick.dbio.DBIO
-import slick.jdbc.H2Profile.api._
+import slick.jdbc.PostgresProfile.api._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future

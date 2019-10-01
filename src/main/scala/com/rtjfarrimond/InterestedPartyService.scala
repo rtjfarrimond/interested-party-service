@@ -12,7 +12,9 @@ import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.util.{Failure, Success}
 
 object InterestedPartyService extends App with InterestedPartyRoutes {
-  private implicit val actorSystem: ActorSystem = ActorSystem("interestedPartySystem")
+
+  implicit val actorSystem: ActorSystem = ActorSystem("interestedPartySystem")
+
   private implicit val materializer: ActorMaterializer = ActorMaterializer()
   private implicit val executionContext: ExecutionContext = actorSystem.dispatcher
 
@@ -39,6 +41,6 @@ object InterestedPartyService extends App with InterestedPartyRoutes {
 
   Await.result(actorSystem.whenTerminated, Duration.Inf)
   database.close()
-  println("Application exiting...")
+  logger.info("Application exiting...")
 
 }
